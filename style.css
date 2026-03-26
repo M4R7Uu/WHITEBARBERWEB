@@ -13,7 +13,7 @@
   --gray-bg: #F5F5F5;
   --gray-border: #e0e0e0;
   --font-display: 'Bebas Neue', sans-serif;
-  --font-body:    'Montserrat', sans-serif;
+  --font-body:     'Montserrat', sans-serif;
   --nav-h: 70px;
   --transition: 0.3s ease;
 }
@@ -246,7 +246,6 @@ a { text-decoration: none; color: inherit; }
   cursor: pointer;
 }
  
-/* Diagonal clip on Arturo's block */
 .artista-arturo {
   clip-path: polygon(0 0, 100% 0, 88% 100%, 0 100%);
   z-index: 2;
@@ -390,6 +389,8 @@ a { text-decoration: none; color: inherit; }
   cursor: pointer;
 }
 .galeria-item img {
+  width: 100%; height: 100%;
+  object-fit: cover;
   transition: transform 0.6s ease;
 }
 .galeria-item:hover img { transform: scale(1.06); }
@@ -451,7 +452,8 @@ a { text-decoration: none; color: inherit; }
   padding: 0 2rem;
 }
  
-.precios-lista { display: flex; flex-direction: column; gap: 0; }
+/* Cambiado de .precios-lista a #precios-lista para coincidir con el JS */
+#precios-lista { display: flex; flex-direction: column; gap: 0; }
  
 .precio-item {
   display: flex;
@@ -556,37 +558,40 @@ a { text-decoration: none; color: inherit; }
 /* ---- FOOTER ---- */
 .footer {
   background: var(--gray-bg);
-  padding: 3rem 2rem;
+  padding: 4rem 2rem 2rem;
   border-top: 1px solid var(--gray-border);
 }
- 
+
 .footer-inner {
   max-width: 1280px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.2rem;
+  gap: 1.5rem;
 }
- 
+
 .footer-logo {
   font-family: var(--font-display);
   font-size: 1.8rem;
   letter-spacing: 0.06em;
   color: var(--black);
 }
- 
+
 .footer-tagline {
   font-size: 0.78rem;
   font-weight: 500;
   letter-spacing: 0.12em;
   color: #888;
+  margin-bottom: 0.5rem;
 }
- 
+
 .footer-social {
   display: flex;
   gap: 1.2rem;
+  margin-bottom: 1rem;
 }
+
 .footer-social a {
   width: 38px; height: 38px;
   border-radius: 50%;
@@ -595,48 +600,82 @@ a { text-decoration: none; color: inherit; }
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background var(--transition);
+  transition: background var(--transition), transform var(--transition);
 }
-.footer-social a:hover { background: var(--red); }
- 
+
+.footer-social a:hover { 
+  background: var(--red); 
+  transform: translateY(-3px);
+}
+
+/* --- BARRA INFERIOR DE CRÉDITOS --- */
 .footer-bottom {
   display: flex;
   align-items: center;
-  gap: 2rem;
+  justify-content: space-between;
+  gap: 1.5rem;
   flex-wrap: wrap;
-  justify-content: center;
-  padding-top: 0.5rem;
+  padding-top: 1.5rem;
   border-top: 1px solid var(--gray-border);
   width: 100%;
 }
-.footer-bottom span {
+
+.footer-credits {
   font-size: 0.72rem;
-  color: #aaa;
+  color: #999;
   letter-spacing: 0.05em;
-}
- 
-.footer-admin {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 0.4rem;
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  color: #bbb;
-  border: 1px solid var(--gray-border);
-  padding: 0.4rem 0.9rem;
-  border-radius: 2px;
-  transition: color var(--transition), border-color var(--transition);
+  gap: 10px;
+  flex-wrap: wrap;
 }
-.footer-admin:hover { color: var(--red); border-color: var(--red); }
- 
+
+.footer-admin {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #666;
+    letter-spacing: 0.1em;
+    padding: 5px 10px;
+    transition: all 0.3s ease;
+}
+
+.footer-admin:hover {
+    color: var(--black);
+}
+
+/* ===========================
+   MARCA PERSONAL — IFCODE 
+   =========================== */
+.ifcode-link {
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 1.1rem; 
+    font-weight: 800;
+    font-family: var(--font-body);
+    animation: glow-pulse-orange 3s infinite ease-in-out;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.if-orange { color: #ff6600; } 
+.code-black { color: #000000; }
+
+@keyframes glow-pulse-orange {
+    0% { text-shadow: 0 0 0px rgba(255, 102, 0, 0); }
+    50% { text-shadow: 0 0 12px rgba(255, 102, 0, 0.7), 0 0 18px rgba(255, 255, 255, 0.4); }
+    100% { text-shadow: 0 0 0px rgba(255, 102, 0, 0); }
+}
+
+.ifcode-link:hover { transform: scale(1.1); opacity: 0.85; }
+
 /* =====================
    RESPONSIVE
    ===================== */
- 
-/* Tablet (≤768px) */
 @media (max-width: 768px) {
-  /* NAV */
   .hamburger { display: flex; }
   .btn-cta { display: none; }
   .nav-links {
@@ -653,12 +692,8 @@ a { text-decoration: none; color: inherit; }
   }
   .nav-links.open { transform: translateY(0); }
   .nav-link { font-size: 1.1rem; }
- 
-  /* ARTISTAS */
-  .artistas {
-    flex-direction: column;
-    height: auto;
-  }
+  
+  .artistas { flex-direction: column; height: auto; }
   .artista-block {
     height: 50vh;
     min-height: 320px;
@@ -671,26 +706,25 @@ a { text-decoration: none; color: inherit; }
     z-index: 2;
   }
   .artista-bio { display: block !important; }
- 
-  /* GALERÍA */
+  
   .galeria-grid { grid-template-columns: repeat(2, 1fr); padding: 0 1rem; }
+
+  .footer-bottom {
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 1.5rem !important;
+    text-align: center;
+  }
+  .footer-credits { justify-content: center !important; width: 100%; }
 }
  
-/* Móvil pequeño (≤480px) */
 @media (max-width: 480px) {
   :root { --nav-h: 60px; }
- 
   .hero { padding-top: calc(var(--nav-h) + 2rem); }
- 
   .galeria-grid { grid-template-columns: 1fr; padding: 0 1rem; }
- 
   .artista-block { height: 45vh; }
- 
   .hero-actions { flex-direction: column; }
   .btn-primary, .btn-ghost { text-align: center; }
- 
   .citas-acciones { flex-direction: column; align-items: center; }
   .btn-whatsapp, .btn-instagram { width: 100%; justify-content: center; }
- 
-  .servicios-container { padding: 0 1.2rem; }
 }
