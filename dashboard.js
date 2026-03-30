@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <span class="precio-puntos" style="flex:1; border-bottom:1px dotted #444; margin:0 10px;"></span>
                             <span class="precio-valor">${valorFinal}</span>
                         </div>
-                        <p class="precio-desc">Servicio garantizado por Villadiego Art</p>
+                        <p class="precio-desc">Servicio garantizado por FAMOUZ BARBERSHOP</p>
                     `;
                     
                     lista.appendChild(item);
