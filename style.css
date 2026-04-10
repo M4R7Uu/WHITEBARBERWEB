@@ -1,5 +1,5 @@
 /* ===========================
-   FAMOUZ BARBER — style.css
+   WHITE BARBER — style.css
    =========================== */
  
 /* ---- ROOT & RESET ---- */
@@ -229,9 +229,9 @@ a { text-decoration: none; color: inherit; }
   transform: translateY(-50%);
 }
  
-/* ---- ARTISTAS ---- */
+/* ---- ARTISTAS (UN SOLO BARBERO) ---- */
 .artistas {
-  display: flex;
+  display: block; /* Bloque completo para uno solo */
   width: 100%;
   height: 80vh;
   min-height: 520px;
@@ -241,31 +241,26 @@ a { text-decoration: none; color: inherit; }
  
 .artista-block {
   position: relative;
-  flex: 1;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
   cursor: pointer;
-}
- 
-.artista-arturo {
-  clip-path: polygon(0 0, 100% 0, 88% 100%, 0 100%);
-  z-index: 2;
-  margin-right: -6%;
-}
-.artista-andres {
-  z-index: 1;
 }
  
 .artista-img-wrap {
   position: absolute;
   inset: 0;
 }
+
 .artista-img {
   width: 100%; height: 100%;
   background-size: cover;
-  background-position: center top;
+  /* FIX: Posicionamiento al 25% para encuadrar la cara en PC */
+  background-position: center 25%; 
   filter: grayscale(100%) brightness(0.55);
   transition: filter 0.5s ease, transform 0.6s ease;
 }
+
 .artista-block:hover .artista-img {
   filter: grayscale(0%) brightness(0.65);
   transform: scale(1.04);
@@ -274,7 +269,7 @@ a { text-decoration: none; color: inherit; }
 .artista-info {
   position: absolute;
   bottom: 0; left: 0; right: 0;
-  padding: 2rem 2.5rem;
+  padding: 4rem 2.5rem;
   background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%);
   z-index: 3;
 }
@@ -293,7 +288,7 @@ a { text-decoration: none; color: inherit; }
  
 .artista-nombre {
   font-family: var(--font-display);
-  font-size: clamp(2.8rem, 5vw, 4.5rem);
+  font-size: clamp(3.5rem, 8vw, 6rem);
   color: var(--white);
   line-height: 1;
   letter-spacing: 0.03em;
@@ -301,22 +296,19 @@ a { text-decoration: none; color: inherit; }
  
 .artista-apellido {
   font-family: var(--font-display);
-  font-size: clamp(1.2rem, 2vw, 1.8rem);
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
   color: var(--red);
   letter-spacing: 0.08em;
   margin-bottom: 0.6rem;
 }
  
 .artista-bio {
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   line-height: 1.6;
-  color: rgba(255,255,255,0.75);
-  max-width: 340px;
+  color: rgba(255,255,255,0.85);
+  max-width: 450px;
   margin-bottom: 1rem;
-  display: none;
-  transition: opacity 0.3s;
 }
-.artista-block:hover .artista-bio { display: block; }
  
 .artista-tags {
   display: flex;
@@ -679,7 +671,7 @@ a { text-decoration: none; color: inherit; }
   .nav-links {
     position: fixed;
     top: var(--nav-h); left: 0; right: 0;
-    background: var(--black); /* CAMBIO: Fondo negro en móvil */
+    background: var(--black); 
     flex-direction: column;
     padding: 2rem;
     gap: 2rem;
@@ -689,21 +681,11 @@ a { text-decoration: none; color: inherit; }
     z-index: 999;
   }
   .nav-links.open { transform: translateY(0); }
-  .nav-link { font-size: 1.1rem; color: var(--white); } /* Letras blancas */
+  .nav-link { font-size: 1.1rem; color: var(--white); } 
   
-  .artistas { flex-direction: column; height: auto; }
-  .artista-block {
-    height: 50vh;
-    min-height: 320px;
-    clip-path: none !important;
-    margin-right: 0;
-  }
-  .artista-arturo {
-    clip-path: polygon(0 0, 100% 0, 100% 88%, 0 100%) !important;
-    margin-bottom: -6%;
-    z-index: 2;
-  }
-  .artista-bio { display: block !important; }
+  .artistas { height: 60vh; min-height: 450px; }
+  .artista-block { clip-path: none !important; margin-right: 0; }
+  .artista-img { background-position: center top; } /* En móvil solemos dejar top para ver la cara de cerca */
   
   .galeria-grid { grid-template-columns: repeat(2, 1fr); padding: 0 1rem; }
 
@@ -720,9 +702,14 @@ a { text-decoration: none; color: inherit; }
   :root { --nav-h: 60px; }
   .hero { padding-top: calc(var(--nav-h) + 2rem); }
   .galeria-grid { grid-template-columns: 1fr; padding: 0 1rem; }
-  .artista-block { height: 45vh; }
+  .artista-block { height: 50vh; }
   .hero-actions { flex-direction: column; }
   .btn-primary, .btn-ghost { text-align: center; }
   .citas-acciones { flex-direction: column; align-items: center; }
   .btn-whatsapp, .btn-instagram { width: 100%; justify-content: center; }
+}
+
+/* FIX EXTRA: Optimización de altura en Desktop para mejor encuadre */
+@media (min-width: 1024px) {
+  .artistas { height: 70vh; }
 }
